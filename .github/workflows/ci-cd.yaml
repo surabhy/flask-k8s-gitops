@@ -1,21 +1,24 @@
-name: GitOps Manifest Update
+name: Deploy to Minikube
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  update-k8s-manifest:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: self-hosted  # Your local Windows machine
+    env:
+      KUBECONFIG: C:\\Users\\surab\\.kube\\config
 
     steps:
-    - name: Checkout Code
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Bump deployment version
+    - name: Set up Minikube (must already be running)
       run: |
-        git config --global user.name "github-actions"
-        git config --global user.email "actions@github.com"
-        git add k8s/
-        git commit -m "Updated deployment to flask-app-v20"
-        git push
+        echo "Assuming Minikube is running and KUBECONFIG is correctly set"
+
+    - name: Deploy to Kubernetes (Minikube)
+      run: |
+        kubectl apply -f k8s/flask-app-v19 -n argocd
+        kubectl rollout status deployment/flask-app-v19 -n argocd --timeout=60s
