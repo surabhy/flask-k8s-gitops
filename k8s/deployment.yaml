@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-v19      # ✅ changed name to bypass old replica set
+  namespace: argocd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+        - name: flask
+          image: flask-secure-app:new # ✅ explicit tag
+          imagePullPolicy: Never          # ✅ force local use
+          ports:
+            - containerPort: 5000
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service-19
+  namespace: argocd
+spec:
+  selector:
+    app: flask-app
+  type: NodePort
+  ports:
+    - port: 5000
+      targetPort: 5000
+      nodePort: 30007
