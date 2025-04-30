@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: flask
-          image: flask-secure-app:new # ✅ explicit tag
+          image: flask-secure-app:dev # ✅ explicit tag
           imagePullPolicy: Never          # ✅ force local use
           ports:
             - containerPort: 5000
