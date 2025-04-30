@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-app-v19      # ✅ changed name to bypass old replica set
+  name: flask-app-v20     # ✅ changed name to bypass old replica set
   namespace: argocd
 spec:
   replicas: 1
@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-service-19
+  name: flask-service-20
   namespace: argocd
 spec:
   selector:
