@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/surabhy/flask-k8s-gitops.git
     targetRevision: HEAD
-    path: k8s/flask-app-v19
+    path: k8s       # ✅ Updated from k8s/flask-app-v19 to k8s
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
