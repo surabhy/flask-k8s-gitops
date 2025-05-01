@@ -20,5 +20,6 @@ jobs:
 
     - name: Deploy to Kubernetes (Minikube)
       run: |
-        kubectl apply -f k8s/flask-app-20 -n argocd
+        kubectl apply -f k8s/deployment.yaml -n argocd
+
         kubectl rollout status deployment/flask-app-v20 -n argocd --timeout=60s
